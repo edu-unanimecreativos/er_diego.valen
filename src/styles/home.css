@@ -1,0 +1,254 @@
+/* ============================================================
+   HOME — exact from Figma frames 2:44 (initial) and 2:2 (expanded + sections)
+   ============================================================ */
+
+.home {
+  background: var(--black);
+  min-height: 100vh;
+}
+
+/* ----- Placeholder gradients used everywhere ----- */
+.slide--1 { background: linear-gradient(135deg, #d4c8b8 0%, #b8a888 50%, #8a7050 100%); }
+.slide--2 { background: linear-gradient(135deg, #2d4a3e 0%, #4a8866 40%, #1a2d24 100%); }
+.slide--3 { background: linear-gradient(135deg, #3a2820 0%, #6b4838 50%, #1f1410 100%); }
+.slide--4 { background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 50%, #0a0a0a 100%); }
+.slide--5 { background: linear-gradient(135deg, #e8c4a0 0%, #b88860 50%, #6a4a30 100%); }
+
+/* ----- HERO: scroll-driven (200vh container with sticky stage) ----- */
+.hero {
+  position: relative;
+  height: 200vh;
+  background: var(--red);
+}
+.hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Black bg, visible once red contracts */
+.hero__bg-black {
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  z-index: 0;
+}
+
+/* Red panel that contracts to the rail width */
+.hero__red {
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  transform-origin: left center;
+  z-index: 1;
+}
+
+/* Full-bleed image that expands from polaroid bounds */
+.hero__big-image {
+  position: absolute;
+  top: 0;
+  left: var(--rail-w);
+  width: calc(100vw - var(--rail-w));
+  height: 100vh;
+  z-index: 2;
+  /* clip-path: set by JS via Framer Motion */
+}
+.hero__big-image .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  visibility: hidden;
+}
+.hero__big-image .slide.is-on { visibility: visible; }
+
+/* Initial state: VALENTINA + polaroid + Valdez centered horizontally */
+.hero__row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(40px, 5.5vw, 96px);
+  z-index: 3;
+}
+
+/* VALENTINA — Figma 9:60: SemiBold Squeezed 29.913px tracking -1.1965px */
+.hero__word-sans {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: clamp(22px, 1.73vw, 29.913px);
+  letter-spacing: -1.1965px;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: normal;
+  white-space: nowrap;
+}
+/* Valdez — Figma 9:61: NightshadeDEMO italic 29.664px tracking -1.1865px */
+.hero__word-script {
+  font-family: "Nightshade", cursive;
+  font-style: italic;
+  font-size: clamp(28px, 1.72vw, 29.664px);
+  letter-spacing: -1.1865px;
+  color: var(--ink);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+/* Polaroid 500×341 (Figma 2:53) */
+.hero__polaroid {
+  position: relative;
+  width: clamp(280px, 28.9vw, 500px);
+  aspect-ratio: 500 / 341;
+  overflow: hidden;
+  background: var(--paper);
+}
+.hero__polaroid .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  visibility: hidden;
+}
+.hero__polaroid .slide.is-on { visibility: visible; }
+
+/* Giant wordmark — fades in at end of scroll
+   Figma 2:37/2:38: 543/539px, mix-blend-exclusion white */
+.hero__giant {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  mix-blend-mode: exclusion;
+  color: var(--paper);
+  opacity: 0;
+}
+.hero__giant span {
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.hero__giant-script {
+  font-family: "Nightshade", cursive;
+  font-style: italic;
+  font-size: 48.3vh;
+  left: 52.66%;
+  top: 32.4%;
+  transform: translateX(-50%);
+}
+.hero__giant-sans {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: 48.7vh;
+  text-transform: uppercase;
+  left: 52.66%;
+  top: 53.36%;
+  transform: translateX(-50%);
+}
+
+/* ----- SECTION 1: intro text on black bg ----- */
+.intro {
+  background: var(--black);
+  color: var(--paper);
+  padding: 80px 149px 200px calc(var(--rail-w) + 57px);
+}
+.intro__text {
+  font-family: "Aspekta", sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -0.36px;
+  line-height: 1.2;
+  max-width: 906px;
+  color: var(--paper);
+}
+
+/* ----- Projects header ----- */
+.projects-header {
+  background: var(--black);
+  color: var(--paper);
+  padding: 0 calc(var(--rail-w) + 57px) 56px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.projects-header__title,
+.projects-header__link {
+  font-family: "Aspekta", sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -0.36px;
+  line-height: normal;
+  color: var(--paper);
+}
+.projects-header__link:hover { opacity: 0.7; }
+
+/* ----- Sticky stacked project cards ----- */
+.projects-stack {
+  position: relative;
+  background: var(--black);
+}
+.project-card {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: calc(100vw - var(--rail-w));
+  margin-left: var(--rail-w);
+  overflow: hidden;
+}
+.project-card__image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-card:hover .project-card__image { transform: scale(1.03); }
+.project-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  color: var(--paper);
+  mix-blend-mode: exclusion;
+  z-index: 2;
+}
+.project-card__title {
+  font-family: "Neue Montreal Semi Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: -1.44px;
+  line-height: normal;
+  color: var(--paper);
+}
+.project-card__year {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: -1.44px;
+  line-height: normal;
+  color: var(--paper);
+}
+.project-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  :root { --rail-w: 56px; }
+  .hero__row { flex-direction: column; gap: 16px; }
+  .hero__word-sans { font-size: 24px; letter-spacing: -1px; }
+  .hero__word-script { font-size: 28px; letter-spacing: -1px; }
+  .hero__polaroid { width: 75vw; }
+  .intro { padding: 60px 24px 120px calc(var(--rail-w) + 24px); }
+  .intro__text { font-size: 24px; letter-spacing: -0.24px; }
+  .projects-header { padding: 0 24px 32px calc(var(--rail-w) + 24px); }
+  .projects-header__title,
+  .projects-header__link { font-size: 22px; letter-spacing: -0.22px; }
+  .project-card__title,
+  .project-card__year { font-size: 22px; letter-spacing: -0.88px; }
+}

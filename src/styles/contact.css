@@ -1,0 +1,148 @@
+/* ============================================================
+   CONTACT PAGE — improvised, matches the Figma aesthetic
+   Layout: rail + profile image (left) + bio + contact info
+   ============================================================ */
+
+.contact-page {
+  background: var(--paper);
+  min-height: 100vh;
+  padding-left: var(--rail-w);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+/* Left side: full-bleed profile image */
+.contact-page__image {
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  position: sticky;
+  top: 0;
+}
+
+/* Right side: bio + contact, sticky-friendly */
+.contact-page__content {
+  padding: 18.2vh 76px 80px 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.contact-page__hello {
+  font-family: "Neue Montreal Mono", monospace;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.contact-page__name {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  letter-spacing: -0.64px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--ink);
+}
+
+.contact-page__role {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.88px;
+  line-height: 1;
+  color: var(--ink);
+  margin: 6px 0 0 0;
+}
+
+.contact-page__bio {
+  font-family: "Aspekta", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.17px;
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 544px;
+  margin: 0;
+}
+
+.contact-page__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 404px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.contact-row__key {
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  color: var(--ink);
+}
+.contact-row__val {
+  font-family: "Neue Montreal Semi Squeezed", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-align: right;
+  text-decoration: none;
+}
+.contact-row__val:hover { opacity: 0.7; }
+
+/* Top bar (Volver a inicio) */
+.contact-page__topbar {
+  position: fixed;
+  top: 0;
+  left: var(--rail-w);
+  right: 0;
+  height: 67px;
+  padding: 24px;
+  z-index: 40;
+}
+.contact-page__topbar .bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Neue Montreal Mono", monospace;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--paper);
+  mix-blend-mode: exclusion;
+}
+.contact-page__topbar svg { width: 12px; height: 11px; }
+
+/* Profile image gradient placeholder */
+.profile-portrait {
+  background: linear-gradient(135deg, #4a3528 0%, #2a1c14 60%, #0e0805 100%);
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+  }
+  .contact-page__image {
+    position: relative;
+    height: 60vh;
+  }
+  .contact-page__content {
+    padding: 60px 24px 80px 24px;
+    gap: 48px;
+    min-height: auto;
+  }
+  .contact-page__name { font-size: 40px; letter-spacing: -0.4px; }
+}

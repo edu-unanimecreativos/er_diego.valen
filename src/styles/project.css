@@ -1,0 +1,271 @@
+/* ============================================================
+   PROJECT PAGE — exact from Figma frame 31:2 (1728×1112)
+   ENTIRE page scrolls horizontally (info + images move together).
+   ============================================================ */
+
+.project-page {
+  background: var(--paper);
+  position: relative;
+  /* The container is tall enough to drive a horizontal scroll of width = stripWidth */
+}
+
+/* Sticky stage — pinned at top while user scrolls vertically;
+   inside, a single big track gets translated horizontally */
+.project-page__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+/* The whole horizontal track: info on left + images strip on right.
+   Translated by JS via translateX. */
+.project-page__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+  will-change: transform;
+}
+
+/* ----- Info panel (Figma 33:184 inside 33:99) -----
+   x=166, y=203, w=544, h=619 (relative to a 1728×1117 viewport).
+   At viewport scale 1: padding-left 166px, padding-top 203px.
+   We size the info panel to fill viewport height minus padding. */
+.project-page__info {
+  flex: 0 0 calc(166px + 544px + 76px);
+  width: calc(166px + 544px + 76px);
+  height: 100vh;
+  padding: 18.2vh 76px 0 166px;
+  background: var(--paper);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8.6vh;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.project-page__num {
+  /* Figma 33:188: PP Neue Montreal Mono Medium 16px white mix-blend-exclusion */
+  font-family: "Neue Montreal Mono", monospace;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--paper);
+  mix-blend-mode: exclusion;
+  margin-bottom: 24px;
+  text-align: center;
+  width: fit-content;
+}
+
+.project-page__head {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  color: var(--ink);
+}
+.project-page__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.project-page__title {
+  /* Figma 31:10: OT Neue Montreal SemiBold Squeezed 64px tracking -0.64px */
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  letter-spacing: -0.64px;
+  line-height: normal;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+.project-page__year {
+  /* Figma 31:13: OT Neue Montreal Book Semi Squeezed 22px tracking -0.88px
+     (We use Book Squeezed as fallback since BookSemi not provided.) */
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.88px;
+  line-height: normal;
+  color: var(--ink);
+  margin: 0;
+}
+.project-page__desc {
+  /* Figma 31:25: Aspekta 500 17px tracking -0.17px */
+  font-family: "Aspekta", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.17px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 0;
+  max-width: 544px;
+}
+
+/* Credits block (Figma 33:183: w=404, gap=24) */
+.project-page__credits {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 404px;
+  margin: 0;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.credit-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.credit-row__key {
+  /* Figma 33:101: OT Neue Montreal Book Semi Squeezed 18px lowercase */
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-transform: lowercase;
+  color: var(--ink);
+  margin: 0;
+}
+.credit-row__val {
+  /* Figma 33:109: OT Neue Montreal Medium Semi Squeezed 18px capitalize */
+  font-family: "Neue Montreal Semi Squeezed", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-transform: capitalize;
+  color: var(--ink);
+  text-align: right;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 228px;
+}
+
+/* ----- Horizontal images strip (Figma 33:97 + 36:14) -----
+   5 images × 1334px wide, gap 24px, full viewport height.
+   Background is red (#ef2c2f) — shows in the gaps. */
+.project-page__strip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 100vh;
+  background: var(--red);
+  padding: 0 24px;
+}
+.project-page__img {
+  flex: 0 0 auto;
+  height: 100vh;
+  width: calc(100vh * (1334 / 1117));  /* exact Figma aspect */
+  background-position: center;
+  background-size: cover;
+}
+
+/* ----- Top bar / Bottom bar — FIXED to viewport.
+   mix-blend-mode applied to the container (not to children) for better
+   browser compatibility. Children just inherit white color. */
+.project-page__topbar,
+.project-page__bottombar {
+  position: fixed;
+  left: var(--rail-w);
+  right: 0;
+  height: 67px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+.project-page__topbar    { top: 0; }
+.project-page__bottombar { bottom: 0; left: 142px; right: 0; }
+
+.bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Neue Montreal Mono", monospace;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--paper);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.bar-link svg { width: 12px; height: 11px; }
+
+.bar-text {
+  font-family: "Neue Montreal Mono", monospace;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--paper);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* ----- Rail variant for project — slightly different hamburger (2px bars) ----- */
+.project-page .rail__ham::before,
+.project-page .rail__ham::after { height: 2px; }
+
+/* ----- Decorative "VALENTINA" vertical (Figma 31:6, 31:7) -----
+   Sits at left:92 top:596 with width:1 overflow-clip, then text:
+     SemiBold Squeezed 543.756px white mix-blend-exclusion at left:818 top:0
+     translate-x:-50%
+   This is a horizontal text positioned super far to the right (818px from a 1px
+   container at left=92), so it ends up visually centered around x=910. Rotated
+   nothing — it's the same wordmark from the home expanded state, reused here.
+   Effectively decorative wallpaper. */
+.project-page__giant {
+  position: absolute;
+  left: 92px;
+  top: 53.4%;     /* 596 / 1117 */
+  width: 1px;
+  height: 58.5%;  /* 653 / 1117 */
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+.project-page__giant span {
+  position: absolute;
+  left: 818px;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: "Neue Montreal Squeezed", sans-serif;
+  font-weight: 600;
+  font-size: 48.7vh;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+  mix-blend-mode: exclusion;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .project-page__info {
+    flex: 0 0 90vw;
+    padding: 100px 24px 24px 24px;
+    gap: 32px;
+  }
+  .project-page__title { font-size: 40px; letter-spacing: -0.4px; }
+  .project-page__credits { width: 100%; }
+  .project-page__img {
+    height: 70vh;
+    width: calc(70vh * (1334 / 1117));
+  }
+  .project-page__giant { display: none; }
+}
+
+.project-page__topbar > *,
+.project-page__bottombar > * { pointer-events: auto; }
